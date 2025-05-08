@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 
@@ -25,16 +26,18 @@ namespace OfxSharpLib
         {
             try
             {
-                if (date.Length < 8)
+                var formats = new[]
                 {
-                    return new DateTime();
+                    "yyyyMMdd",
+                    "yyyy-MM-dd",
+                };
+
+                if (DateTime.TryParseExact(date, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
+                {
+                    return result;
                 }
 
-                var dd = Int32.Parse(date.Substring(6, 2));
-                var mm = Int32.Parse(date.Substring(4, 2));
-                var yyyy = Int32.Parse(date.Substring(0, 4));
-
-                return new DateTime(yyyy, mm, dd);
+                return new DateTime();
             }
             catch
             {

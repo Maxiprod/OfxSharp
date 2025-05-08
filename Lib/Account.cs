@@ -67,9 +67,10 @@ namespace OfxSharpLib
             //Get Bank Account Type from XML
             string bankAccountType = node.GetValue("//ACCTTYPE");
 
-            //Check that it has been set
-            if (String.IsNullOrEmpty(bankAccountType))
-                throw new OfxParseException("Bank Account type unknown");
+            if (string.IsNullOrEmpty(bankAccountType))
+            {
+                return;
+            }
 
             //Set bank account enum
             _bankAccountType = bankAccountType.GetBankAccountType();

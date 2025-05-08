@@ -36,6 +36,10 @@ namespace OfxSharpLib
         DIRECTDEBIT,
         [Description("Repeating Payment")]
         REPEATPMT,
+        [Description("Basic Credit")]
+        C,
+        [Description("Basic Debit")]
+        D,
         OTHER,
     }
 }
