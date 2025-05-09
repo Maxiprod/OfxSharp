@@ -35,10 +35,6 @@ namespace OfxSharpLib
                 }
                 //LedgerBalance = Convert.ToDecimal(tempLedgerBalance, CultureInfo.InvariantCulture);
             }
-            else
-            {
-                throw new OfxParseException("Ledger balance has not been set");
-            }
 
             // ***** OFX files from my bank don't have the 'avaliableNode' node, so i manage a null situation
             if (avaliableNode == null)
