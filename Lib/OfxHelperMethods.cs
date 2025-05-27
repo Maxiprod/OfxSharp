@@ -26,6 +26,15 @@ namespace OfxSharpLib
         {
             try
             {
+                // Tratar formato especial "yyyyMMddhhMMss[-3:GMT]" para somente data.
+                // Por ser um formato de data não padronizado,não é possível escrever uma string de formato
+                // que seja compatível com o TryParseExact.
+                // SL-60693 (https://app.clickup.com/t/9007115994/SL-60693)
+                if (date.Length == 22)
+                {
+                    date = date.Substring(0, 8);
+                }
+
                 var formats = new[]
                 {
                     "yyyyMMdd",
