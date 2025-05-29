@@ -26,27 +26,22 @@ namespace OfxSharpLib
         {
             try
             {
-                // Tratar formato especial "yyyyMMddhhMMss[-3:GMT]" para somente data.
-                // Por ser um formato de data não padronizado,não é possível escrever uma string de formato
-                // que seja compatível com o TryParseExact.
-                // SL-60693 (https://app.clickup.com/t/9007115994/SL-60693)
-                if (date.Length == 22)
+                if (date.Length < 8)
                 {
-                    date = date.Substring(0, 8);
+                    return new DateTime();
                 }
 
-                var formats = new[]
-                {
-                    "yyyyMMdd",
-                    "yyyy-MM-dd",
-                };
-
-                if (DateTime.TryParseExact(date, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
+                // Tratativa especial para o banco 482 - SBCASH. Vide https://app.clickup.com/t/9007115994/SL-59693
+                if (DateTime.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
                 {
                     return result;
                 }
 
-                return new DateTime();
+                var dd = Int32.Parse(date.Substring(6, 2));
+                var mm = Int32.Parse(date.Substring(4, 2));
+                var yyyy = Int32.Parse(date.Substring(0, 4));
+
+                return new DateTime(yyyy, mm, dd);
             }
             catch
             {
