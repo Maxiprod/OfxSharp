@@ -16,7 +16,7 @@ namespace OFXSharp.Tests
             var stream = new MemoryStream(bytes);
 
             var ofxDocument = parser.Import(stream);
-            Assert.AreEqual(3, ofxDocument.Transactions.Count());
+            Assert.That(3 == ofxDocument.Transactions.Count());
         }
     }
 }
