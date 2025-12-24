@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Sgml;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
-using Sgml;
 
 namespace OfxSharpLib
 {
@@ -89,17 +90,7 @@ namespace OfxSharpLib
             //Get balance info from ofx xmlDocument
             var ledgerNode = doc.SelectSingleNode(GetXPath(ofx.AccType, OfxSection.Balance) + "/LEDGERBAL");
             var avaliableNode = doc.SelectSingleNode(GetXPath(ofx.AccType, OfxSection.Balance) + "/AVAILBAL");
-
-            //If balance info present, populate balance object
-            // ***** OFX files from my bank don't have the 'avaliableNode' node, so i manage a 'null' situation
-            if (ledgerNode != null) // && avaliableNode != null
-            {
-                ofx.Balance = new Balance(ledgerNode, avaliableNode);
-            }
-            else
-            {
-                throw new OfxParseException("Balance information not found");
-            }
+            ofx.Balance = new Balance(ledgerNode, avaliableNode);
 
             return ofx;
         }
@@ -193,7 +184,8 @@ namespace OfxSharpLib
         /// <returns></returns>
         private bool IsXmlVersion(string file)
         {
-            return (file.IndexOf("OFXHEADER:100", StringComparison.Ordinal) == -1);
+            return (file.IndexOf("OFXHEADER:100", StringComparison.Ordinal) == -1) &&
+                (file.IndexOf("OFXHEADER: 100", StringComparison.Ordinal) == -1);
         }
 
         /// <summary>
@@ -236,7 +228,9 @@ namespace OfxSharpLib
             //End of header worked out by finding first instance of '<'
             //Array split based of new line & carrige return
             var header = file.Substring(0, file.IndexOf('<'))
-               .Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+               .Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+               .Select(x => x.Replace(" ", ""))
+               .ToArray();
 
             //Check that no errors in header
             CheckHeader(header);

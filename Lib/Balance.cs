@@ -16,7 +16,7 @@ namespace OfxSharpLib
 
         public Balance(XmlNode ledgerNode, XmlNode avaliableNode)
         {
-            var tempLedgerBalance = ledgerNode.GetValue("//BALAMT");
+            var tempLedgerBalance = ledgerNode?.GetValue("//BALAMT");
 
             if (!String.IsNullOrEmpty(tempLedgerBalance))
             {
@@ -63,7 +63,7 @@ namespace OfxSharpLib
                 AvaliableBalanceDate = avaliableNode.GetValue("//DTASOF").ToDate();
             }
 
-            LedgerBalanceDate = ledgerNode.GetValue("//DTASOF").ToDate();
+            LedgerBalanceDate = (ledgerNode?.GetValue("//DTASOF")).ToDate();
         }
     }
 }

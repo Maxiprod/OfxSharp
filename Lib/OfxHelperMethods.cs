@@ -26,7 +26,7 @@ namespace OfxSharpLib
         {
             try
             {
-                if (date.Length < 8)
+                if (string.IsNullOrEmpty(date) || date.Length < 8)
                 {
                     return new DateTime();
                 }

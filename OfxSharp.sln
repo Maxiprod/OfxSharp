@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfxSharp", "Lib\OfxSharp.csproj", "{DDD851F6-8CDE-4777-9B44-AADD0CC678F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfxSharp.Tests", "Tests\OfxSharp.Tests.csproj", "{9E62687C-D10B-4410-B6F8-F5C3A3C2820F}"
