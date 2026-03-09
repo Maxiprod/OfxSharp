@@ -60,10 +60,12 @@ namespace OfxSharpLib
                 {
                     throw new OfxParseException("Avaliable balance has not been set");
                 }
-                AvaliableBalanceDate = avaliableNode.GetValue("//DTASOF").ToDate();
+                // O preenchimento da propriedade foi removida na https://app.clickup.com/t/9007115994/SL-68078.
+                //AvaliableBalanceDate = avaliableNode.GetValue("//DTASOF").ToDate();
             }
 
-            LedgerBalanceDate = (ledgerNode?.GetValue("//DTASOF")).ToDate();
+            // O preenchimento da propriedade foi removida na https://app.clickup.com/t/9007115994/SL-68078.
+            //LedgerBalanceDate = (ledgerNode?.GetValue("//DTASOF")).ToDate();
         }
     }
 }
